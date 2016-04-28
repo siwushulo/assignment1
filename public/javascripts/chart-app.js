@@ -1,18 +1,11 @@
 var app = angular.module('simple-chart', []);
+google.load("visualization", "1", {packages:["corechart"]});
 
-app.controller('MainCtrl', function($scope, $http) {
-  $http.get("https://isys475assignment1-siwushulo.c9users.io/data").then(function (response) {
-    
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(function() {
-        formatDataTable(response.data);
-        
-
-       
-      });
+app.controller('MainCtrl', ['$scope', '$http',  function($scope, $http) {
+  $http.get("/data").success(function (data) {
+        formatDataTable(data);
   });
-});
-
+}]);
 
 
 function formatDataTable(chartdata) {
